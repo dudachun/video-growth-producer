@@ -1,0 +1,9 @@
+interface:
+  display_name: "Video Growth Producer"
+  short_description: "Trainable short-video production workflow"
+  brand_color: "#F97316"
+  default_prompt: "Use $video-growth-producer to create a short video from my idea, generate a cover, captions, and a Remotion render plan."
+
+policy:
+  allow_implicit_invocation: true
+

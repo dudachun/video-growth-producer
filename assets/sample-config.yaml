@@ -1,0 +1,24 @@
+workspace:
+  profile: default
+  input_dir: input
+  output_dir: output
+  assets_dir: assets
+  generated_dir: .generated
+
+video:
+  engine: remotion
+  width: 1080
+  height: 1920
+  fps: 30
+  codec: h264
+  crf: 18
+
+enhancers:
+  imagegen: true
+  hyperframes: false
+
+voice:
+  provider: cosyvoice
+  speed: 1.2
+  fallback: ask
+

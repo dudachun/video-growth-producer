@@ -1,0 +1,24 @@
+profile_name: default
+series_name: "Daily Practical Ideas"
+niche: "AI tools and practical workflows"
+audience: "beginners, creators, operators, founders"
+content_goal: "followers and consultation leads"
+offer_or_conversion: "course, consulting, service, or community"
+tone: "direct, practical, high-energy"
+platforms:
+  - douyin
+  - tiktok
+default_duration_sec: 45
+video_engine: remotion
+optional_enhancers:
+  imagegen: true
+  hyperframes: false
+voice:
+  provider: cosyvoice
+  profile_id: ""
+  fallback: ask
+style:
+  visual_mode: light-tech
+  caption_position: 75%
+  keyword_highlight: yellow
+
