@@ -1,3 +1,20 @@
+<p align="center">
+  <img src="assets/readme/hero.svg" alt="Video Growth Producer" width="100%" />
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-16a34a?style=for-the-badge"></a>
+  <img alt="Codex Skill" src="https://img.shields.io/badge/Codex-Skill-111827?style=for-the-badge">
+  <img alt="Remotion" src="https://img.shields.io/badge/Video-Remotion-2563eb?style=for-the-badge">
+  <img alt="imagegen" src="https://img.shields.io/badge/Visual-imagegen-f59e0b?style=for-the-badge">
+  <img alt="HyperFrames" src="https://img.shields.io/badge/Motion-HyperFrames-06b6d4?style=for-the-badge">
+  <img alt="Chinese README" src="https://img.shields.io/badge/Docs-%E4%B8%AD%E6%96%87-ef4444?style=for-the-badge">
+</p>
+
+<p align="center">
+  <strong>把选题、文案、封面、字幕、AI 旁白、Remotion 成片和数据复盘，变成一套可训练的短视频生产流程。</strong>
+</p>
+
 # Video Growth Producer
 
 `video-growth-producer` 是一个可训练的 Codex Skill，用来帮助创作者批量生产短视频内容。
@@ -16,6 +33,15 @@
 - 发布后数据复盘与内容记忆
 
 适用平台包括：抖音、TikTok、视频号、Reels、YouTube Shorts、小红书竖屏视频等。
+
+## 30 秒理解
+
+| 你给它 | 它帮你输出 |
+| --- | --- |
+| 一个账号方向 | 可持续训练的创作者资料与内容记忆 |
+| 一个选题 | 爆款开头、口播文案、分镜和封面方案 |
+| 一段文案 | 字幕时间轴、画面策划、Remotion 视频生成流程 |
+| 发布后的数据截图 | 原因分析、下期优化建议、长期经验记录 |
 
 ## 这个 Skill 适合谁
 
@@ -113,13 +139,13 @@ Skill 会优先生成竖屏短视频方案，包括：
 macOS / Linux：
 
 ```bash
-git clone https://github.com/<你的 GitHub 用户名>/video-growth-producer.git ~/.codex/skills/video-growth-producer
+git clone https://github.com/dudachun/video-growth-producer.git ~/.codex/skills/video-growth-producer
 ```
 
 Windows PowerShell：
 
 ```powershell
-git clone https://github.com/<你的 GitHub 用户名>/video-growth-producer.git $env:USERPROFILE\.codex\skills\video-growth-producer
+git clone https://github.com/dudachun/video-growth-producer.git $env:USERPROFILE\.codex\skills\video-growth-producer
 ```
 
 安装后，新开一个 Codex 会话，然后这样调用：
@@ -345,4 +371,3 @@ output/
 ## 开源协议
 
 MIT License
-
