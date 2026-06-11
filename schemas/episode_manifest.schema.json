@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/dudachun/video-growth-producer/schemas/episode_manifest.schema.json",
+  "title": "Video Growth Producer Episode Manifest",
+  "type": "object",
+  "required": ["mode", "episodeId", "title", "video", "script", "captions", "visualPlan", "outputs"],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["strict", "remotion-only"]
+    },
+    "episodeId": { "type": "string" },
+    "title": { "type": "string" },
+    "seriesName": { "type": "string" },
+    "video": {
+      "type": "object",
+      "required": ["width", "height", "fps", "durationSec"],
+      "properties": {
+        "width": { "type": "integer" },
+        "height": { "type": "integer" },
+        "fps": { "type": "integer" },
+        "durationSec": { "type": "number" },
+        "captionTopPercent": { "type": "number" },
+        "captionFont": { "type": "string" },
+        "captionHighlightColor": { "type": "string" }
+      }
+    },
+    "script": {
+      "type": "object",
+      "required": ["path"],
+      "properties": {
+        "path": { "type": "string" },
+        "firstSentence": { "type": "string" }
+      }
+    },
+    "voice": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string" },
+        "speed": { "type": "number" },
+        "openingAsrPath": { "type": "string" },
+        "openingQaPassed": { "type": "boolean" }
+      }
+    },
+    "bgm": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string" },
+        "volume": { "type": "number" }
+      }
+    },
+    "captions": {
+      "type": "object",
+      "required": ["path", "highlightTerms"],
+      "properties": {
+        "path": { "type": "string" },
+        "highlightTerms": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "visualPlan": {
+      "type": "object",
+      "required": ["path"],
+      "properties": {
+        "path": { "type": "string" }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "properties": {
+        "imagegen": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "official": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "screenshots": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "required": ["video", "cover"],
+      "properties": {
+        "video": { "type": "string" },
+        "cover": { "type": "string" }
+      }
+    }
+  }
+}

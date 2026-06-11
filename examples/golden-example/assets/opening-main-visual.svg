@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="720" viewBox="0 0 1080 720">
+  <rect width="1080" height="720" fill="#eef7ff"/>
+  <rect x="72" y="96" width="420" height="500" rx="34" fill="#fff1f2" stroke="#ef4444" stroke-width="5"/>
+  <rect x="588" y="96" width="420" height="500" rx="34" fill="#f0fdf4" stroke="#22c55e" stroke-width="5"/>
+  <text x="282" y="178" text-anchor="middle" font-size="46" font-weight="900" font-family="Arial" fill="#b91c1c">EMPTY OPENING</text>
+  <text x="798" y="178" text-anchor="middle" font-size="46" font-weight="900" font-family="Arial" fill="#15803d">SUBJECT FIRST</text>
+  <circle cx="282" cy="338" r="110" fill="#fecaca"/>
+  <path d="M220 338h124" stroke="#991b1b" stroke-width="18" stroke-linecap="round"/>
+  <path d="M798 242l84 88-84 88-84-88z" fill="#bbf7d0" stroke="#16a34a" stroke-width="6"/>
+  <path d="M735 343l42 42 96-120" fill="none" stroke="#15803d" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="540" y="660" text-anchor="middle" font-size="34" font-weight="800" font-family="Arial" fill="#0f172a">0-2s must contain a visible subject</text>
+</svg>

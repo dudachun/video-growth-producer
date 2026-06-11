@@ -1,14 +1,15 @@
+import type { FC } from "react";
 import { Composition } from "remotion";
+import { episodeManifest } from "./episode_manifest";
 import { VideoGrowthTemplate } from "./VideoGrowthTemplate";
 
-export const Root: React.FC = () => (
+export const Root: FC = () => (
   <Composition
     id="VideoGrowthTemplate"
     component={VideoGrowthTemplate}
-    durationInFrames={45 * 30}
-    fps={30}
-    width={1080}
-    height={1920}
+    durationInFrames={Math.ceil(episodeManifest.video.durationSec * episodeManifest.video.fps)}
+    fps={episodeManifest.video.fps}
+    width={episodeManifest.video.width}
+    height={episodeManifest.video.height}
   />
 );
-

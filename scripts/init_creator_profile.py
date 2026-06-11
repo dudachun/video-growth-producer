@@ -19,9 +19,12 @@ platforms:
   - tiktok
 default_duration_sec: 45
 video_engine: remotion
+production_mode: strict
 optional_enhancers:
-  imagegen: true
+  imagegen: required
   hyperframes: false
+fallback_modes:
+  remotion_only_preview: explicit_user_confirmation_required
 voice:
   provider: cosyvoice
   profile_id: ""
@@ -30,6 +33,12 @@ style:
   visual_mode: light-tech
   caption_position: 75%
   keyword_highlight: yellow
+quality_rules:
+  first_2_sec_subject: true
+  first_5_sec_concrete_value: true
+  require_cover: true
+  require_manifest: true
+  require_visual_plan: true
 """
 
 
@@ -76,4 +85,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -11,6 +11,7 @@ Ask only what is needed:
 - What is the goal: followers, leads, consulting, course sales, product sales, community, or brand?
 - What style should the videos feel like: aggressive, friendly, expert, cinematic, practical, funny, calm?
 - Do you want voiceover, silent preview, or bring your own audio/video?
+- Can the current agent call imagegen or an equivalent image generation tool? If not, strict publish mode cannot run.
 
 ## Initialize
 
@@ -21,6 +22,14 @@ python scripts/init_creator_profile.py --profile default
 ```
 
 Then edit `profiles/default/creator-profile.yaml` from the user's answers.
+
+Before generating a publish-ready video, run:
+
+```bash
+python scripts/doctor.py --mode strict --imagegen available
+```
+
+Only use `--imagegen available` when the current agent really has image generation capability.
 
 ## First Workspace
 
@@ -35,4 +44,3 @@ remotion-video/
 ```
 
 The public skill should not require this exact layout if the user's project already has equivalents.
-

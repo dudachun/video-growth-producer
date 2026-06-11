@@ -1,0 +1,32 @@
+[
+  {
+    "text": "前 2 秒如果没有主体画面，观众会直接划走。",
+    "startMs": 0,
+    "endMs": 3600
+  },
+  {
+    "text": "发布版必须先生成 imagegen 素材，再进入 Remotion。",
+    "startMs": 3600,
+    "endMs": 7600
+  },
+  {
+    "text": "字幕固定在屏幕 75% 的位置，重点词用黄色。",
+    "startMs": 7600,
+    "endMs": 11800
+  },
+  {
+    "text": "每 3 到 5 秒要换一次主画面结构。",
+    "startMs": 11800,
+    "endMs": 17000
+  },
+  {
+    "text": "没有图片大模型时，只能做 Remotion-only 预览。",
+    "startMs": 17000,
+    "endMs": 23000
+  },
+  {
+    "text": "发布版必须通过 manifest 和 visual plan 双重校验。",
+    "startMs": 23000,
+    "endMs": 31000
+  }
+]

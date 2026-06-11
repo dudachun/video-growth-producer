@@ -1,0 +1,38 @@
+{
+  "mode": "strict",
+  "episodeId": "golden-example",
+  "title": "别让视频前 5 秒空掉",
+  "seriesName": "Video Growth Producer",
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "durationSec": 45,
+    "captionTopPercent": 75,
+    "captionFont": "Noto Serif SC",
+    "captionHighlightColor": "#ffd84d"
+  },
+  "script": {
+    "path": "examples/golden-example/script.txt",
+    "firstSentence": "前 2 秒如果没有主体画面，观众会直接划走。"
+  },
+  "captions": {
+    "path": "examples/golden-example/captions.json",
+    "highlightTerms": ["前 2 秒", "前 5 秒", "imagegen", "Remotion", "75%"]
+  },
+  "visualPlan": {
+    "path": "examples/golden-example/visual_plan.json"
+  },
+  "assets": {
+    "imagegen": [
+      "examples/golden-example/assets/opening-main-visual.svg",
+      "examples/golden-example/assets/cover-background.svg"
+    ],
+    "official": [],
+    "screenshots": []
+  },
+  "outputs": {
+    "video": "output/golden-example_codex.mp4",
+    "cover": "examples/golden-example/assets/cover-background.svg"
+  }
+}

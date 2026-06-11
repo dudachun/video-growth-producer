@@ -1,19 +1,30 @@
 ---
 name: video-growth-producer
-description: Trainable short-video growth production workflow for Douyin, TikTok, Reels, YouTube Shorts, WeChat Channels, or similar platforms. Use when the user asks to generate short-video topics, hooks, scripts, storyboards, covers, captions, voiceover plans, Remotion videos, imagegen visual assets, HyperFrames enhancements, or to review video performance screenshots/data and improve future content direction. Also use when the user wants to initialize or train a creator-specific content profile.
+description: Trainable strict short-video production workflow for Douyin, TikTok, Reels, YouTube Shorts, WeChat Channels, or similar platforms. Use when the user asks to generate short-video topics, hooks, scripts, storyboards, covers, captions, voiceover plans, Remotion videos, required imagegen visual assets, HyperFrames enhancements, or to review video performance screenshots/data and improve future content direction. Also use when the user wants to initialize or train a creator-specific content profile.
 ---
 
 # Video Growth Producer
 
-Use this skill to turn an idea, script, or performance screenshot into a trainable short-video production workflow.
+Turn an idea, script, or performance screenshot into a trainable short-video production workflow.
 
 ## Core Rule
 
 Separate the public skill from each creator's private profile.
 
-- Public skill files contain workflows, scripts, templates, and sample configs only.
+- Public skill files contain workflows, scripts, schemas, templates, and sample configs only.
 - Creator-specific voice samples, voice models, generated audio, input videos, output videos, account data, and performance ledgers live outside the public skill or under ignored local profile/workspace folders.
 - Do not assume a built-in voice profile. Check local config and ask the user how they want voice handled when needed.
+
+## Mode Rule
+
+Default to `strict` mode for publish-ready videos.
+
+- `strict`: publish-quality mode. It requires imagegen or an equivalent image generation capability.
+- `remotion-only`: preview fallback. Use it only after the user explicitly confirms the fallback.
+
+If the current agent cannot generate images, do not render a publish-ready video. Tell the user the skill cannot run in strict mode without imagegen, and ask whether they want to install/enable imagegen or continue with `remotion-only` preview.
+
+Do not silently downgrade strict mode.
 
 ## First Decision
 
@@ -22,7 +33,7 @@ Classify the user request:
 - **Initialize**: create a creator profile or workspace.
 - **Train direction**: update audience, niche, style, forbidden patterns, winning patterns, or performance memory.
 - **Script**: generate or revise a topic/hook/script.
-- **Video**: generate assets, captions, voice, and a Remotion video from a script.
+- **Video**: generate image assets, captions, voice, cover, manifest, and a Remotion video from a script.
 - **Review**: analyze metrics/screenshots and update the next-video strategy.
 
 ## Required Workspace Checks
@@ -46,29 +57,53 @@ python scripts/init_creator_profile.py --profile default
 python scripts/check_workspace.py --profile default
 ```
 
-If the user already has a project structure, map these files to the local equivalent instead of duplicating data.
+Before a publish render, run:
+
+```bash
+python scripts/doctor.py --mode strict --imagegen available
+```
+
+Only pass `--imagegen available` when the current agent can actually call imagegen or an equivalent image generation tool. If this is not true, strict mode is blocked.
 
 ## Production Workflow
 
 For "make a video" requests:
 
 1. Load the creator profile and content memory.
-2. If no script is provided, write one in the creator's trained direction.
-3. Build a visual plan before rendering.
-4. Enforce the opening retention rule: the first 2 seconds need a visible subject demo, result proof, concrete example, or before/after comparison; the first 5 seconds must make the problem and value obvious.
-5. Generate or locate cover/background assets. Use imagegen for non-logo visuals when available. A publish-ready cover image is mandatory unless the user explicitly asks to skip it.
-6. Generate or import voice according to the local creator config. CosyVoice is the recommended local default when configured.
-7. Before rendering, quality-check the opening voiceover: extract the first 5 seconds, transcribe it with Whisper or another available ASR, and compare it with the first script sentence. If the first word, negation word, or core verb is wrong, rewrite or regenerate the opening voice before continuing.
-8. Create captions with highlighted keywords from the approved voice timing.
-9. Render with Remotion by default. HyperFrames is optional for enhanced animated scenes.
-10. Export the cover separately from the video. Add title text locally instead of asking imagegen to draw Chinese or brand text.
-11. Validate the MP4 with ffprobe and check that the opening visuals, voice, and captions match. Check that the cover file exists and the title is readable.
-12. Write the episode record and any predictions or assumptions.
+2. Decide mode. Default to `strict`; use `remotion-only` only after explicit user confirmation.
+3. Run `doctor.py`.
+4. If no script is provided, write one in the creator's trained direction.
+5. Build `visual_plan.json` before rendering.
+6. Enforce the opening retention rule: the first 2 seconds need a visible subject demo, result proof, concrete example, or before/after comparison; the first 5 seconds must make the problem and value obvious.
+7. In strict mode, generate required imagegen assets for the opening, key scenes, and cover background. Copy generated assets into the project. Do not leave them only in a global generated-images folder.
+8. Generate or import voice according to local creator config. CosyVoice is the recommended local default when configured.
+9. Before rendering, quality-check the opening voiceover: extract the first 5 seconds, transcribe it with Whisper or another available ASR, and compare it with the first script sentence. If the first word, negation word, or core verb is wrong, rewrite or regenerate the opening voice before continuing.
+10. Create captions from approved timing. Captions must be near 75% from the top, white with black shadow, no outline, and important terms in yellow.
+11. Create `episode_manifest.json`.
+12. Render with the Remotion template.
+13. Export the cover separately. Add title text locally instead of asking imagegen to draw Chinese or brand text.
+14. Run `validate_episode.py`. Do not deliver the video as complete unless validation passes.
+15. Write the episode record and any predictions or assumptions.
+
+## Quality Gates
+
+Strict publish mode must pass all gates:
+
+- 1080x1920 vertical MP4, 30fps, H.264 + AAC.
+- Separate cover image exists.
+- `visual_plan.json` exists and passes `validate_visual_plan.py`.
+- `episode_manifest.json` exists and passes `validate_episode.py`.
+- At least the required number of imagegen assets exists in strict mode.
+- 0-2 seconds has a subject-bearing layout.
+- 0-5 seconds has concrete value, proof, comparison, or example.
+- Captions are synchronized, near 75% vertical position, and include yellow key terms.
+- Opening voice QA passed.
 
 ## References
 
 Load only the relevant reference:
 
+- `references/strict-production.md`: strict mode, imagegen requirement, and remotion-only fallback.
 - `references/onboarding.md`: first-run setup and profile initialization.
 - `references/creator-profile.md`: profile schema and trainable memory files.
 - `references/content-training.md`: how to update direction from user feedback.
@@ -82,20 +117,33 @@ Load only the relevant reference:
 ## Scripts
 
 - `scripts/init_creator_profile.py`: create a local trainable creator profile.
-- `scripts/check_workspace.py`: inspect profile, assets, voice config, and output folders.
+- `scripts/check_workspace.py`: inspect profile, assets, tools, and output folders.
+- `scripts/doctor.py`: enforce strict/remotion-only capability checks.
 - `scripts/create_caption_timeline.py`: create Remotion-compatible caption JSON from a script and duration.
 - `scripts/create_cover.py`: compose a title cover over a generated/background image.
-- `scripts/validate_video.py`: ffprobe validation wrapper.
+- `scripts/export_manifest_to_remotion.py`: export JSON manifest, captions, and visual plan into the Remotion template.
+- `scripts/validate_visual_plan.py`: check opening, motion, layout, and imagegen requirements.
+- `scripts/validate_video.py`: low-level ffprobe validation wrapper.
+- `scripts/validate_episode.py`: publish-quality manifest, asset, caption, cover, voice, and ffprobe validation.
 - `scripts/update_content_memory.py`: append direction changes, wins, and forbidden patterns.
 - `scripts/update_performance_ledger.py`: append analytics records.
+
+## Bundled Assets
+
+- `assets/remotion-template/`: manifest-driven Remotion production template.
+- `assets/cover-template/`: cover prompt pattern.
+- `assets/sample-config.yaml`: strict production defaults.
+- `assets/sample-creator-profile.yaml`: profile defaults.
+- `schemas/episode_manifest.schema.json`: episode manifest contract.
+- `schemas/visual_plan.schema.json`: visual plan contract.
 
 ## Defaults
 
 - Video engine: Remotion.
+- Required image generator for publish mode: imagegen or equivalent.
 - Optional visual enhancer: HyperFrames.
-- Optional image generator: imagegen.
 - Recommended local voice path: CosyVoice, configured per creator profile.
-- Default output: 9:16 vertical MP4, 1080x1920, 30fps, H.264 + AAC, plus a separate cover image.
+- Default output: 9:16 vertical MP4, 1080x1920, 30fps, H.264 + AAC, plus a separate 3:4 cover image.
 - Default platform logic: optimize for short-video cold-start retention.
 
 ## When Publishing Or Sharing

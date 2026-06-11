@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Validate an MP4 with ffprobe."""
+"""Validate an MP4 with ffprobe.
+
+This remains as a small low-level wrapper. For publish-quality checks, use
+scripts/validate_episode.py.
+"""
 
 from __future__ import annotations
 
@@ -7,6 +11,23 @@ import argparse
 import json
 import subprocess
 from pathlib import Path
+
+
+def probe_video(video: Path) -> dict:
+    cmd = [
+        "ffprobe",
+        "-v",
+        "error",
+        "-show_entries",
+        "format=duration,size",
+        "-show_entries",
+        "stream=index,codec_type,codec_name,width,height,avg_frame_rate",
+        "-of",
+        "json",
+        str(video),
+    ]
+    result = subprocess.run(cmd, check=True, capture_output=True, text=True)
+    return json.loads(result.stdout)
 
 
 def main() -> None:
@@ -21,20 +42,7 @@ def main() -> None:
     if not video.exists():
         raise SystemExit(f"missing video: {video}")
 
-    cmd = [
-        "ffprobe",
-        "-v",
-        "error",
-        "-show_entries",
-        "format=duration,size",
-        "-show_entries",
-        "stream=index,codec_type,codec_name,width,height,avg_frame_rate",
-        "-of",
-        "json",
-        str(video),
-    ]
-    result = subprocess.run(cmd, check=True, capture_output=True, text=True)
-    data = json.loads(result.stdout)
+    data = probe_video(video)
     streams = data.get("streams", [])
     video_stream = next((s for s in streams if s.get("codec_type") == "video"), None)
     audio_stream = next((s for s in streams if s.get("codec_type") == "audio"), None)
@@ -51,4 +59,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/dudachun/video-growth-producer/schemas/visual_plan.schema.json",
+  "title": "Video Growth Producer Visual Plan",
+  "type": "object",
+  "required": ["mode", "scope", "styleMode", "beats"],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["strict", "remotion-only"]
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["single-topic", "single-tool", "three-tool", "big-project", "custom"]
+    },
+    "styleMode": {
+      "type": "string"
+    },
+    "openingContract": {
+      "type": "object",
+      "properties": {
+        "first2SecHasSubject": { "type": "boolean" },
+        "first5SecHasConcreteValue": { "type": "boolean" },
+        "openingProof": { "type": "string" }
+      }
+    },
+    "imagegenAssets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "purpose", "prompt", "required"],
+        "properties": {
+          "name": { "type": "string" },
+          "purpose": { "type": "string" },
+          "prompt": { "type": "string" },
+          "required": { "type": "boolean" },
+          "path": { "type": "string" }
+        }
+      }
+    },
+    "beats": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["startSec", "endSec", "layout", "title", "visualGoal", "assetSource", "motion"],
+        "properties": {
+          "startSec": { "type": "number", "minimum": 0 },
+          "endSec": { "type": "number", "exclusiveMinimum": 0 },
+          "voice": { "type": "string" },
+          "layout": {
+            "type": "string",
+            "enum": [
+              "impact-open",
+              "wrong-right",
+              "compare",
+              "workflow",
+              "proof",
+              "screen-demo",
+              "checklist",
+              "asset-focus",
+              "cta"
+            ]
+          },
+          "title": { "type": "string" },
+          "subtitle": { "type": "string" },
+          "visualGoal": { "type": "string" },
+          "assetSource": {
+            "type": "string",
+            "enum": ["imagegen", "official", "screenshot", "generated-ui", "none"]
+          },
+          "asset": { "type": "string" },
+          "imagegenAsset": { "type": "string" },
+          "bullets": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "motion": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

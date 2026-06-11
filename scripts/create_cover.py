@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 
 
@@ -40,10 +41,14 @@ def main() -> None:
 
     font_path = Path(args.font) if args.font else None
     if not font_path or not font_path.exists():
+        windows_fonts = Path(os.environ.get("WINDIR", "")) / "Fonts"
         candidates = [
-            Path(r"C:\Windows\Fonts\msyhbd.ttc"),
-            Path(r"C:\Windows\Fonts\simhei.ttf"),
-            Path(r"C:\Windows\Fonts\Arial.ttf"),
+            windows_fonts / "msyhbd.ttc",
+            windows_fonts / "simhei.ttf",
+            windows_fonts / "Arial.ttf",
+            Path("/System/Library/Fonts/PingFang.ttc"),
+            Path("/Library/Fonts/Arial Unicode.ttf"),
+            Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"),
         ]
         font_path = next((p for p in candidates if p.exists()), None)
     if not font_path:
@@ -74,4 +79,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

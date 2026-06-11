@@ -1,0 +1,96 @@
+{
+  "mode": "strict",
+  "scope": "single-topic",
+  "styleMode": "light-tech",
+  "openingContract": {
+    "first2SecHasSubject": true,
+    "first5SecHasConcreteValue": true,
+    "openingProof": "0-2s shows wrong vs right cards; 0-5s shows strict imagegen production flow."
+  },
+  "imagegenAssets": [
+    {
+      "name": "opening-main-visual",
+      "purpose": "0-2s subject-bearing opening visual",
+      "prompt": "Light tech short-video opening visual, wrong workflow versus correct workflow, no readable text, no logo.",
+      "required": true,
+      "path": "examples/golden-example/assets/opening-main-visual.svg"
+    },
+    {
+      "name": "cover-background",
+      "purpose": "3:4 cover background",
+      "prompt": "High-retention short-video cover background, light tech, strong contrast, no readable text.",
+      "required": true,
+      "path": "examples/golden-example/assets/cover-background.svg"
+    }
+  ],
+  "beats": [
+    {
+      "startSec": 0,
+      "endSec": 4,
+      "voice": "前 2 秒如果没有主体画面，观众会直接划走。",
+      "layout": "wrong-right",
+      "title": "前 2 秒不能空",
+      "subtitle": "主体必须立刻出现",
+      "visualGoal": "Show wrong empty opening vs subject-bearing opening.",
+      "assetSource": "imagegen",
+      "imagegenAsset": "examples/golden-example/assets/opening-main-visual.svg",
+      "bullets": ["空背景", "主体对比"],
+      "motion": ["split reveal", "warning flash"]
+    },
+    {
+      "startSec": 4,
+      "endSec": 10,
+      "voice": "发布版必须先生成 imagegen 素材，再进入 Remotion。",
+      "layout": "workflow",
+      "title": "发布流程写死",
+      "visualGoal": "Show script to imagegen to Remotion to validation.",
+      "assetSource": "generated-ui",
+      "bullets": ["文案", "imagegen", "Remotion", "校验"],
+      "motion": ["step highlight", "connector sweep"]
+    },
+    {
+      "startSec": 10,
+      "endSec": 17,
+      "voice": "字幕固定在屏幕 75% 的位置，重点词用黄色。",
+      "layout": "checklist",
+      "title": "字幕位置固定",
+      "visualGoal": "Show caption style contract.",
+      "assetSource": "generated-ui",
+      "bullets": ["75%", "白字黑影", "黄色重点"],
+      "motion": ["caption lock", "keyword pop"]
+    },
+    {
+      "startSec": 17,
+      "endSec": 25,
+      "voice": "每 3 到 5 秒要换一次主画面结构。",
+      "layout": "proof",
+      "title": "画面不能懒",
+      "visualGoal": "Show layout cadence and motion density.",
+      "assetSource": "generated-ui",
+      "bullets": ["3-5 秒换结构", "0.8-1.5 秒微动效"],
+      "motion": ["layout flip", "micro motion"]
+    },
+    {
+      "startSec": 25,
+      "endSec": 34,
+      "voice": "没有图片大模型时，只能做 Remotion-only 预览。",
+      "layout": "compare",
+      "title": "没有 imagegen 就停止",
+      "visualGoal": "Explain strict mode block and preview fallback.",
+      "assetSource": "generated-ui",
+      "bullets": ["Strict 发布", "Preview 预览"],
+      "motion": ["mode switch", "lock"]
+    },
+    {
+      "startSec": 34,
+      "endSec": 45,
+      "voice": "发布版必须通过 manifest 和 visual plan 双重校验。",
+      "layout": "cta",
+      "title": "先校验，再交付",
+      "visualGoal": "Close with publish gates.",
+      "assetSource": "generated-ui",
+      "bullets": ["manifest", "visual plan", "ffprobe"],
+      "motion": ["final checklist"]
+    }
+  ]
+}

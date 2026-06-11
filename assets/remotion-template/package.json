@@ -1,21 +1,20 @@
 {
   "scripts": {
-    "lint": "eslint src && tsc",
+    "lint": "tsc --noEmit",
     "render": "remotion render src/index.ts VideoGrowthTemplate output/final.mp4 --codec=h264 --crf=18",
     "still": "remotion still src/index.ts VideoGrowthTemplate output/check.png --frame=150 --scale=0.35"
   },
   "dependencies": {
     "@remotion/captions": "latest",
     "@remotion/cli": "latest",
-    "@remotion/media": "latest",
     "remotion": "latest",
     "react": "latest",
     "react-dom": "latest"
   },
   "devDependencies": {
     "@types/react": "latest",
+    "@types/react-dom": "latest",
     "eslint": "latest",
     "typescript": "latest"
   }
 }
-

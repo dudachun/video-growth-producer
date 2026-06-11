@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 from pathlib import Path
 
 
@@ -30,9 +31,26 @@ def main() -> None:
         "voice_samples_dir": (root / "voice_samples").exists(),
         "voice_models_dir": (root / "voice_models").exists(),
         "remotion_project": (root / "package.json").exists() or (root / "remotion-video" / "package.json").exists(),
+        "remotion_template": (root / "assets" / "remotion-template" / "package.json").exists(),
+        "schemas": (root / "schemas" / "episode_manifest.schema.json").exists()
+        and (root / "schemas" / "visual_plan.schema.json").exists(),
+        "doctor_script": (root / "scripts" / "doctor.py").exists(),
+        "validate_episode_script": (root / "scripts" / "validate_episode.py").exists(),
+        "node": shutil.which("node") is not None,
+        "npm": shutil.which("npm") is not None,
+        "ffmpeg": shutil.which("ffmpeg") is not None,
+        "ffprobe": shutil.which("ffprobe") is not None,
     }
     checks["ready_for_script"] = checks["creator_profile"] and checks["content_memory"]
-    checks["ready_for_render"] = checks["ready_for_script"] and checks["output_dir"] and checks["remotion_project"]
+    checks["ready_for_render"] = (
+        checks["ready_for_script"]
+        and checks["output_dir"]
+        and (checks["remotion_project"] or checks["remotion_template"])
+        and checks["node"]
+        and checks["npm"]
+        and checks["ffmpeg"]
+        and checks["ffprobe"]
+    )
     print(json.dumps(checks, ensure_ascii=False, indent=2))
 
 

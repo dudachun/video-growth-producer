@@ -17,6 +17,7 @@ private-*.yaml
 *_voice_profile*
 *_speaker*
 node_modules/
+__pycache__/
+*.pyc
 dist/
 .DS_Store
-

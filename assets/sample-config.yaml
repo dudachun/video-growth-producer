@@ -6,19 +6,31 @@ workspace:
   generated_dir: .generated
 
 video:
+  mode: strict
   engine: remotion
   width: 1080
   height: 1920
   fps: 30
   codec: h264
   crf: 18
+  caption_top_percent: 75
+  caption_highlight: yellow
+  require_cover: true
 
 enhancers:
-  imagegen: true
+  imagegen: required
   hyperframes: false
+  remotion_only_preview: user_confirmed_only
 
 voice:
   provider: cosyvoice
   speed: 1.2
   fallback: ask
 
+quality_gates:
+  first_2_sec_subject: required
+  first_5_sec_concrete_value: required
+  min_imagegen_assets_strict: 2
+  validate_manifest: true
+  validate_visual_plan: true
+  validate_episode: true
