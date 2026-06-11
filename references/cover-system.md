@@ -2,6 +2,8 @@
 
 Use generated or captured visuals as backgrounds. Add final title text locally to avoid malformed Chinese or brand text.
 
+Every publish-ready video should include a separate cover image unless the user explicitly asks to skip it.
+
 ## Workflow
 
 1. Decide cover promise from the hook.
@@ -9,6 +11,7 @@ Use generated or captured visuals as backgrounds. Add final title text locally t
 3. Keep background text-free when using imagegen.
 4. Use `scripts/create_cover.py` for title layout.
 5. Export a cover image separately from the video.
+6. Validate that the cover file exists, the title is readable, and the visual promise matches the first 5 seconds of the video.
 
 ## Cover Prompt Pattern
 
@@ -26,4 +29,4 @@ Avoid: logos, watermarks, malformed text.
 - One short subheading or badge.
 - Strong contrast.
 - Do not place important text under platform UI areas.
-
+- Default filename: `output/<date>_<slug>_cover.png`.

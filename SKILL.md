@@ -56,12 +56,14 @@ For "make a video" requests:
 2. If no script is provided, write one in the creator's trained direction.
 3. Build a visual plan before rendering.
 4. Enforce the opening retention rule: the first 2 seconds need a visible subject demo, result proof, concrete example, or before/after comparison; the first 5 seconds must make the problem and value obvious.
-5. Generate or locate cover/background assets. Use imagegen for non-logo visuals when available.
-6. Create captions with highlighted keywords.
-7. Generate or import voice according to the local creator config. CosyVoice is the recommended local default when configured.
-8. Render with Remotion by default. HyperFrames is optional for enhanced animated scenes.
-9. Validate the MP4 with ffprobe.
-10. Write the episode record and any predictions or assumptions.
+5. Generate or locate cover/background assets. Use imagegen for non-logo visuals when available. A publish-ready cover image is mandatory unless the user explicitly asks to skip it.
+6. Generate or import voice according to the local creator config. CosyVoice is the recommended local default when configured.
+7. Before rendering, quality-check the opening voiceover: extract the first 5 seconds, transcribe it with Whisper or another available ASR, and compare it with the first script sentence. If the first word, negation word, or core verb is wrong, rewrite or regenerate the opening voice before continuing.
+8. Create captions with highlighted keywords from the approved voice timing.
+9. Render with Remotion by default. HyperFrames is optional for enhanced animated scenes.
+10. Export the cover separately from the video. Add title text locally instead of asking imagegen to draw Chinese or brand text.
+11. Validate the MP4 with ffprobe and check that the opening visuals, voice, and captions match. Check that the cover file exists and the title is readable.
+12. Write the episode record and any predictions or assumptions.
 
 ## References
 
@@ -93,7 +95,7 @@ Load only the relevant reference:
 - Optional visual enhancer: HyperFrames.
 - Optional image generator: imagegen.
 - Recommended local voice path: CosyVoice, configured per creator profile.
-- Default output: 9:16 vertical MP4, 1080x1920, 30fps, H.264 + AAC.
+- Default output: 9:16 vertical MP4, 1080x1920, 30fps, H.264 + AAC, plus a separate cover image.
 - Default platform logic: optimize for short-video cold-start retention.
 
 ## When Publishing Or Sharing

@@ -128,6 +128,8 @@ Skill 会优先生成竖屏短视频方案，包括：
 - 素材需求
 - Remotion 渲染建议
 
+默认生成发布版视频时，也要同时生成一张独立封面图。推荐封面比例是 `3:4`，背景可以用 imagegen 生成，但中文标题必须用本地脚本或设计工具叠加，避免 AI 生成错字和乱码。
+
 如果你启用了 imagegen，可以让 Codex 为每个重点画面生成视觉素材。
 
 如果你启用了 HyperFrames，可以把部分画面升级成更强的动态页面或演示动画。
@@ -288,6 +290,8 @@ profiles/default/forbidden-patterns.md
 - 先生成无声预览
 - 自己接入其他语音方案
 
+生成发布版视频前，必须单独质检开头第一句：抽取最终旁白前 5 秒，用 Whisper 或其他 ASR 转写，确认第一个词、否定词和核心动词没有读错。如果开头读错，要先重生成语音或改写第一句，再继续渲染。
+
 声音相关说明见：
 
 ```text
@@ -327,7 +331,7 @@ scripts/update_performance_ledger.py
 - `init_creator_profile.py`：初始化本地创作者资料
 - `check_workspace.py`：检查当前工作区是否准备好
 - `create_caption_timeline.py`：根据文案和时长生成字幕时间轴
-- `create_cover.py`：生成封面提示词文件
+- `create_cover.py`：把标题叠加到封面背景图上，生成发布用封面
 - `validate_video.py`：用 `ffprobe` 检查成片规格
 - `update_content_memory.py`：记录内容方向变化
 - `update_performance_ledger.py`：记录发布数据和复盘结果
